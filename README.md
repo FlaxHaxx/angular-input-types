@@ -2,10 +2,10 @@
 Creates form inputs for swedish SSN (i.e. personnummer). There will be more input types in the future.
 
 # Demo
-There is a demo at [https://www.blitter.se/angular-input-types/examples]
+There is a demo at https://www.blitter.se/angular-input-types/examples/
 
 # Installation
-Download [dist/angular-input-types.min.js].
+Download [angular-input-types.min.js](dist/angular-input-types.min.js).
 
 # Usage
 ## Personnummer
