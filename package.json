@@ -1,7 +1,6 @@
 {
   "name": "angular-input-types",
   "version": "0.1.0-SNAPSHOT",
-  "private": true,
   "dependencies": {},
   "devDependencies": {
     "angular": "^1.6.3",
