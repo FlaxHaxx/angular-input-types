@@ -6,18 +6,44 @@ angular.module('inputTypes')
                 return false;
             }
 
-            // Check date/samordningsnummer
-            if (!value.match(/^(\d{4})(\d{2})(\d{2})\-(\d{4})$/)) {
-                return false;
-            }
-            var date = new Date(RegExp.$1, RegExp.$2 - 1, RegExp.$3 < 61 ? RegExp.$3 : 1);
-            if(date.getFullYear() != RegExp.$1 || date.getMonth() != RegExp.$2 - 1 || (date.getDate() != RegExp.$3 && (RegExp.$3 < 61 || RegExp.$3 > 91))) {
+            if (!dateOrSamordningsnummer(value)) {
                 return false;
             }
 
-            // Check luhn algoritm
-            var value = value.replace('-', '');
-            value = value.substring(2);
+            return luhnAlgoritm(value);
+        }
+        
+        function orgnr(value) {
+            if(value.length != 11 && value.length != 13) {
+                return false;
+            }
+
+            if (!value.match(/^(\d{2})?(\d{2})(\d{2})(\d{2})\-(\d{4})$/)) {
+                return false;
+            }
+            if(parseInt(RegExp.$3) < 20) {
+                return personnummer(value.length == 11 ? '20' + value : value);
+            }
+
+            return luhnAlgoritm(value);
+        }
+
+        function dateOrSamordningsnummer(value) {
+            if (!value.match(/^(\d{4})(\d{2})(\d{2})\-(\d{4})$/)) {
+                return false;
+            }
+
+            var date = new Date(RegExp.$1, RegExp.$2 - 1, RegExp.$3 < 61 ? RegExp.$3 : 1);
+            if(RegExp.$1 < 1840 || date.getFullYear() != RegExp.$1 || date.getMonth() != RegExp.$2 - 1 || (date.getDate() != RegExp.$3 && (RegExp.$3 < 61 || RegExp.$3 > 91))) {
+                return false;
+            }
+
+            return true;
+        }
+
+        function luhnAlgoritm(value) {
+            value = cleanValue(value);
+            
             var sum = 0;
             for (var i = 0; i < 10; i++) {
                 var digit = parseInt(value.charAt(i));
@@ -32,7 +58,13 @@ angular.module('inputTypes')
             return (sum % 10) === 0;
         }
 
+        function cleanValue(value) {
+            value = value.replace('-', '');
+            return value.length == 12 ? value.substring(2) : value;
+        }
+
         return {
-            personnummer: personnummer
+            personnummer: personnummer,
+            orgnr: orgnr
         }
     });

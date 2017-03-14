@@ -2,7 +2,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: ['./src/_module.js', './src/validate.js', './src/personnummer.js']
+    app: ['./src/_module.js', './src/validate.js', './src/orgnr.js', './src/personnummer.js']
   },
   resolve: {
     extensions: ['', '.js']

@@ -15,7 +15,7 @@ Helps the user to enter a swedish SSN in the format of yyyymmdd-nnnn.
 ```
 
 ## Organisationsnummer
-TODO
-
-##Person- eller organisationsnummer
-TODO
+Helps the user to enter an swedish organisation number.
+```html
+<input type="tel" id="orgnr" ng-model="orgnr" input-orgnr/>
+```
