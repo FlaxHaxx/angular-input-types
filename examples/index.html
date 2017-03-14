@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>angular-input-type - personnummer</title>
+  <link rel="stylesheet" href="examples.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+  <script src="../dist/angular-input-types.js"></script>
+</head>
+
+<body ng-app="exampleApp" ng-controller="personnummerController">
+  <form>
+    <label for="personnummer">Personnummer</label>
+    <input type="tel" id="personnummer" ng-model="personnummer" input-personnummer/>
+  </form>
+  <script>
+    angular.module("exampleApp", ['inputTypes']).controller('personnummerController', function () { });
+  </script>
+</body>
+
+</html>

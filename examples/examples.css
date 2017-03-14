@@ -1,0 +1,9 @@
+:focus {
+    outline: none;
+}
+
+input.ng-invalid {
+    color:#f00;
+    border: 1px solid #f00;
+    background-color: #fee;
+}
