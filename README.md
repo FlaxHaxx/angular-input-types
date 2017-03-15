@@ -10,13 +10,13 @@ There is a demo at https://www.blitter.se/angular-input-types/examples/
 Download [angular-input-types.min.js](dist/angular-input-types.min.js).
 
 # Usage
-## Personnummer
+## Swedish SSN (i.e. personnummer)
 Helps the user to enter a swedish SSN in the format of yyyymmdd-nnnn.
 ```html
 <input type="tel" id="personnummer" ng-model="personnummer" input-personnummer/>
 ```
 
-## Organizationsnummer
+## Swedish organization number
 Helps the user to enter an swedish organization number.
 ```html
 <input type="tel" id="orgnr" ng-model="orgnr" input-orgnr/>
