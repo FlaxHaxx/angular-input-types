@@ -8,7 +8,7 @@ There is a demo at https://www.blitter.se/angular-input-types/examples/
 
 # Installation
 Several options are available:
-- [Download latest version](dist/angular-input-types.min.js).
+- [Download latest version](https://github.com/FlaxHaxx/angular-input-types/releases/latest).
 - Install with [npm](https://www.npmjs.com): `npm install angular-input-types`
 - Install with [yarn](https://github.com/yarnpkg/yarn): `yarn add angular-input-types`
 
