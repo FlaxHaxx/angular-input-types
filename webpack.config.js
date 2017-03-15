@@ -18,6 +18,9 @@ module.exports = {
         drop_console: true
       },
       mangle: false
-    })
+    }),
+    new webpack.BannerPlugin(`Angular Input Types v0.1.0-SNAPSHOT
+(c) 2017 Jon Wikman. https://github.com/FlaxHaxx/angular-input-types
+License: MIT`)
   ]
 };
