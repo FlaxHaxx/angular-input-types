@@ -20,11 +20,14 @@ li {
     min-height: 35px;
 }
 
-form {
+p, form {
     max-width: 500px;
-    background: #eee;
-    padding: 30px;
     margin: 50px auto;
+}
+
+form {
+    padding: 30px;
+    background: #eee;
     box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
     border-radius: 10px;
     border: 1px solid #ccc;
@@ -43,7 +46,7 @@ input {
     border: 1px solid #ccc;
 }
 
-:focus {
+input:focus {
     outline: none;
     box-shadow: 0 0 5px #ccc;
 }

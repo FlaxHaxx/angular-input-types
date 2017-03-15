@@ -9,7 +9,7 @@
   <script src="../dist/angular-input-types.min.js"></script>
 </head>
 <body ng-app="exampleApp" ng-controller="personnummerController">
-  <h1>Angular Input Types - Examples</h1>
+  <h1>Angular Input Types</h1>
   <form>
     <ul>
       <li>
@@ -18,12 +18,13 @@
       </li>
       <li>
         <label for="orgnr">Organisationsnummer</label>
-        <input type="tel" id="orgnr" ng-model="orgnr" placeholder="" input-orgnr/>
+        <input type="tel" id="orgnr" ng-model="orgnr" input-orgnr/>
       </li>
     </ul>
   </form>
   <script>
       angular.module("exampleApp",[ 'inputTypes' ]).controller('personnummerController', function() {});
   </script>
+  <p>Usage: <a href="https://github.com/FlaxHaxx/angular-input-types">https://github.com/FlaxHaxx/angular-input-types</a>.</p>
 </body>
 </html>
