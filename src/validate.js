@@ -25,6 +25,10 @@ angular.module('inputTypes')
                 return personnummer(value.length == 11 ? '20' + value : value);
             }
 
+            if(RegExp.$1 != '' && RegExp.$1 != 16) {
+                return false;
+            }
+
             return luhnAlgoritm(value);
         }
 

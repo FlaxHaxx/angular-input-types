@@ -65,6 +65,9 @@ describe('validate', function () {
         it('should validate 121212-1212', inject(function (validate) {
             expect(validate.orgnr('121212-1212')).toBe(true);
         }));
+        it('should not validate organisationsnummer 15556100-1123', inject(function (validate) {
+            expect(validate.orgnr('15556100-1123')).toBe(false);
+        }));
         it('should not validate 121212+1212', inject(function (validate) {
             expect(validate.orgnr('121212+1212')).toBe(false);
         }));
