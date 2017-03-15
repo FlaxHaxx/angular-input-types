@@ -6,7 +6,9 @@ angular.module('inputTypes')
         var containsCentury = century == 16 || century == 18 || century == 19 || century == 20;
 
         if((value.length == 6 && !containsCentury) || (value.length == 8 && containsCentury)) {
-            value += '-';
+            if(value.indexOf('-') == -1) {
+                value += '-';
+            }
         }
 
         return value;
@@ -21,7 +23,7 @@ angular.module('inputTypes')
             }
 
             var listener = function() {
-                var value = elm.val().replace(/[^0-9\-]/g, '');
+                var value = elm.val().replace(/[^0-9\-]/g, '').replace('--', '-');
                 value = format(value);
                 if(value != elm.val()) {
                     elm.val(value);

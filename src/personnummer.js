@@ -5,10 +5,16 @@ angular.module('inputTypes')
 
     function format(value) {
         if(value.length == 2 && value != centuryNow - 1 && value != centuryNow) {
+            // value is "YY" but not this year or last year
             value = getCentury(value) + value;
         }
 
-        if(value.length == 8) {
+        if(value.length == 7 && value[6] == '-') {
+            // value is "YYMMDD-"
+            value = getCentury(value) + value;
+        }
+
+        if(value.length == 8 && value.indexOf('-') == -1) {
             value += '-';
         }
 
@@ -47,7 +53,7 @@ angular.module('inputTypes')
             }
 
             var listener = function() {
-                var value = elm.val().replace(/[^0-9\-]/g, '');
+                var value = elm.val().replace(/[^0-9\-]/g, '').replace('--', '-');
                 value = format(value);
                 if(value != elm.val()) {
                     elm.val(value);
