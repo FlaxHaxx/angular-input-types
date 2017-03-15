@@ -1,6 +1,6 @@
 {
   "name": "angular-input-types",
-  "version": "0.1.0-SNAPSHOT",
+  "version": "0.1.0",
   "dependencies": {},
   "devDependencies": {
     "angular": "^1.6.3",
