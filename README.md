@@ -1,7 +1,7 @@
 # Angular Input Types
 Used on form inputs to help users using autocomplete and validation. See available input types below.
-- [Swedish SSN (i.e. personnummer)](#personnummer)
-- [Swedish organization number](#organizationsnummer)
+- [Swedish SSN (i.e. personnummer)](#swedish-ssn-ie-personnummer)
+- [Swedish organization number](#swedish-organization-number)
 
 # Demo
 There is a demo at https://www.blitter.se/angular-input-types/examples/
