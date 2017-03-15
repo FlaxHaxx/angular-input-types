@@ -1,5 +1,7 @@
 # Angular Input Types
-Creates form inputs for swedish SSN (i.e. personnummer). There will be more input types in the future.
+Used on form inputs to help users using autocomplete and validation. See available input types below.
+- [Swedish SSN (i.e. personnummer)](#personnummer)
+- [Swedish organization number](#organizationsnummer)
 
 # Demo
 There is a demo at https://www.blitter.se/angular-input-types/examples/
@@ -8,14 +10,14 @@ There is a demo at https://www.blitter.se/angular-input-types/examples/
 Download [angular-input-types.min.js](dist/angular-input-types.min.js).
 
 # Usage
-## Personnummer
+## Swedish SSN (i.e. personnummer)
 Helps the user to enter a swedish SSN in the format of yyyymmdd-nnnn.
 ```html
 <input type="tel" id="personnummer" ng-model="personnummer" input-personnummer/>
 ```
 
-## Organisationsnummer
-Helps the user to enter an swedish organisation number.
+## Swedish organization number
+Helps the user to enter an swedish organization number.
 ```html
 <input type="tel" id="orgnr" ng-model="orgnr" input-orgnr/>
 ```
