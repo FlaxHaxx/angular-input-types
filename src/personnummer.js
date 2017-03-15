@@ -73,7 +73,7 @@ angular.module('inputTypes')
             elm.bind('keydown', function(event) {
                 var key = event.keyCode;
                 // Backspace, delete, ctrl, shift, alt or meta keys
-                if(key == 8 || key == 46/* || key == 65*/ || key == 91 || (15 < key && key < 19) || (37 <= key && key <= 40)) {
+                if(key == 8 || key == 46 || key == 91 || (15 < key && key < 19) || (37 <= key && key <= 40)) {
                     return;
                 }
                 $browser.defer(listener);
