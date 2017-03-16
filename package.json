@@ -1,5 +1,6 @@
 {
   "name": "angular-input-types",
+  "description": "AngularJS directives used on form inputs. Makes it easy for the users to input the correct information using autocomplete and validation.",
   "version": "0.2.0-SNAPSHOT",
   "dependencies": {},
   "devDependencies": {
