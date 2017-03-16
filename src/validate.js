@@ -46,7 +46,10 @@ angular.module('inputTypes')
         }
 
         function luhnAlgoritm(value) {
-            value = cleanValue(value);
+            value = value.replace('-', '');
+            if(value.length == 12) {
+                value = value.substring(2);
+            }
             
             var sum = 0;
             for (var i = 0; i < 10; i++) {
@@ -60,11 +63,6 @@ angular.module('inputTypes')
                 sum += digit;
             }
             return (sum % 10) === 0;
-        }
-
-        function cleanValue(value) {
-            value = value.replace('-', '');
-            return value.length == 12 ? value.substring(2) : value;
         }
 
         return {
