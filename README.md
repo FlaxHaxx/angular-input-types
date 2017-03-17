@@ -1,5 +1,5 @@
 # Angular Input Types
-[![npm version](https://img.shields.io/npm/v/angular-input-types.svg?style=flat-square)](https://www.npmjs.com/package/angular-input-types) 
+[![npm version](https://img.shields.io/npm/v/angular-input-types.svg?style=flat-square)](https://www.npmjs.com/package/angular-input-types)  
 [![Build Status](https://travis-ci.org/FlaxHaxx/angular-input-types.svg)](https://travis-ci.org/FlaxHaxx/angular-input-types)
 [![Dependency Status](https://img.shields.io/david/flaxhaxx/angular-input-types.svg?style=flat-square)](https://david-dm.org/flaxhaxx/angular-input-types)
 [![peerDependency Status](https://img.shields.io/david/peer/flaxhaxx/angular-input-types.svg?style=flat-square)](https://david-dm.org/flaxhaxx/angular-input-types?type=peer)
