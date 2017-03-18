@@ -18,6 +18,13 @@ angular.module('inputTypes')
             value += '-';
         }
 
+        if(value.length == 12 && value.indexOf('-') == -1) {
+            var newValue = value.slice(0, 8) + '-' + value.slice(8);
+            if(validate.personnummer(newValue)) {
+                value = newValue;
+            }
+        }
+
         return value;
     }
 
@@ -62,7 +69,7 @@ angular.module('inputTypes')
             }
 
             var pasteListener = function() {
-                var value = elm.val().replace(/[^0-9\-]/g, '');
+                var value = elm.val().replace(/[^0-9\-]/g, '').replace('--', '-');
                 value = formatPaste(value);
                 if(value != elm.val()) {
                     elm.val(value);
