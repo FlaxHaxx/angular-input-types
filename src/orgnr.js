@@ -14,6 +14,23 @@ angular.module('inputTypes')
         return value;
     }
 
+    function formatPaste(value) {
+        if(value.length < 2) {
+            return value;
+        }
+
+        var century = value.slice(0, 2);
+        var containsCentury = century == 16 || century == 18 || century == 19 || century == 20;
+
+        if((value.length == 10 && !containsCentury) || (value.length == 12 && containsCentury)) {
+            if(value.indexOf('-') == -1) {
+                value = value.slice(0, value.length - 4) + '-' + value.slice(value.length - 4);
+            }
+        }
+
+        return value;
+    }
+
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -31,6 +48,15 @@ angular.module('inputTypes')
                 }
             }
 
+            var pasteListener = function() {
+                var value = elm.val().replace(/[^0-9\-]/g, '').replace('--', '-');
+                value = formatPaste(value);
+                if(value != elm.val()) {
+                    elm.val(value);
+                    elm.triggerHandler('input');
+                }
+            }
+
             elm.bind('keydown', function(event) {
                 var key = event.keyCode;
                 // Backspace, delete, ctrl, shift, alt or meta keys
@@ -41,7 +67,7 @@ angular.module('inputTypes')
             });
 
             elm.bind('paste cut', function() {
-                $browser.defer(listener);
+                $browser.defer(pasteListener);
             });
 
             elm.bind('change', listener);
