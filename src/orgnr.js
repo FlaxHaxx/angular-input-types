@@ -11,6 +11,13 @@ angular.module('inputTypes')
             }
         }
 
+        if((value.length == 10 && !containsCentury) || (value.length == 12 && containsCentury)) {
+            var newValue = value.slice(0, value.length - 4) + '-' + value.slice(value.length - 4);
+            if(validate.orgnr(newValue)) {
+                value = newValue;
+            }
+        }
+
         return value;
     }
 
