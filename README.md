@@ -20,6 +20,18 @@ Several options are available:
 
 
 # Usage
+Include angular-input-types.min.js on the page.
+```html
+<script src="angular-input-types.min.js"></script>
+```
+
+Include the `inputTypes` dependency in on your AngularJS module.
+```html
+var app = angular.module('exampleApp', [ 'inputTypes' ]);
+```
+
+See how to use different input types below.
+
 ## Swedish SSN (i.e. personnummer)
 Helps the user to enter a swedish SSN in the format of yyyymmdd-nnnn.
 ```html
