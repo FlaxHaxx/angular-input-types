@@ -1,5 +1,6 @@
 describe('orgnr', function () {
     beforeEach(module('inputTypes'));
+
     describe('inputOrgnr', function () {
         var form;
         beforeEach(inject(function ($compile, $rootScope) {

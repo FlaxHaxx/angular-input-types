@@ -1,5 +1,6 @@
 describe('personnummer', function () {
     beforeEach(module('inputTypes'));
+
     describe('inputPersonnummer', function () {
         var form;
         beforeEach(inject(function ($compile, $rootScope) {
