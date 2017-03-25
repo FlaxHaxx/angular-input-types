@@ -2,15 +2,7 @@ angular.module('inputTypes')
 
 .factory('validate', function () {
     function personnummer(value) {
-        if (value.length != 13) {
-            return false;
-        }
-
-        if (!dateOrSamordningsnummer(value)) {
-            return false;
-        }
-
-        return luhnAlgoritm(value);
+        return value.length == 13 && dateOrSamordningsnummer(value) && luhnAlgoritm(value);
     }
     
     function orgnr(value) {
