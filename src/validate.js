@@ -4,7 +4,7 @@ angular.module('inputTypes')
     function personnummer(value) {
         return value.length == 13 && dateOrSamordningsnummer(value) && luhnAlgoritm(value);
     }
-    
+
     function orgnr(value) {
         if(value.length != 11 && value.length != 13) {
             return false;
@@ -42,7 +42,7 @@ angular.module('inputTypes')
         if(value.length == 12) {
             value = value.substring(2);
         }
-        
+
         var sum = 0;
         for (var i = 0; i < 10; i++) {
             var digit = parseInt(value.charAt(i));
