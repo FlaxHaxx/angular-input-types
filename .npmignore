@@ -1,0 +1,3 @@
+.travis.yaml
+.vscode
+/node_modules/
