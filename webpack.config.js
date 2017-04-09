@@ -17,8 +17,8 @@ module.exports = {
       },
       mangle: false
     }),
-    new webpack.BannerPlugin('Angular Input Types v' + require('./package.json').version + `
+    new webpack.BannerPlugin({banner: 'Angular Input Types v' + require('./package.json').version + `
 (c) 2017 Jon Wikman. https://github.com/FlaxHaxx/angular-input-types
-License: MIT`)
+License: MIT`})
   ]
 };
