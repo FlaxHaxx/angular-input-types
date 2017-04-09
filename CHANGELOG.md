@@ -1,3 +1,9 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/FlaxHaxx/angular-input-types/compare/0.2.0...1.0.0) (2017-04-09)
+
+## Features
+* **OrgNr input:** Adding dash if missing when orgnr is 10 or 12 characters and valid. ([f35b5c0](https://github.com/FlaxHaxx/angular-input-types/commit/f35b5c0))
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/FlaxHaxx/angular-input-types/compare/0.1.0...0.2.0) (2017-03-19)
 
