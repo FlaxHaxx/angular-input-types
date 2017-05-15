@@ -1,6 +1,6 @@
 angular.module('inputTypes')
 
-.directive('inputOrgnr', function($browser, validate) {
+.directive('inputOrgnr', ['$browser', 'validate', function($browser, validate) {
     function format(value) {
         var century = value.slice(0, 2);
         var containsCentury = century == 16 || century == 18 || century == 19 || century == 20;
@@ -80,4 +80,4 @@ angular.module('inputTypes')
             elm.bind('change', listener);
         }
     }
-});
+}]);

@@ -1,6 +1,6 @@
 angular.module('inputTypes')
 
-.directive('inputPersonnummer', function($browser, validate) {
+.directive('inputPersonnummer', ['$browser', 'validate', function($browser, validate) {
     var centuryNow = String(new Date().getFullYear()).slice(0, 2);
 
     function format(value) {
@@ -93,4 +93,4 @@ angular.module('inputTypes')
             elm.bind('change', pasteListener);
         }
     }
-});
+}]);
