@@ -2,6 +2,7 @@ angular.module('inputTypes')
 
 .directive('inputPersonnummer', ['$browser', 'validate', function($browser, validate) {
     var centuryNow = String(new Date().getFullYear()).slice(0, 2);
+    var yearNow = String(new Date().getFullYear()).slice(2, 4);
 
     function format(value) {
         if(value.length == 2 && value != centuryNow - 1 && value != centuryNow) {
@@ -11,7 +12,7 @@ angular.module('inputTypes')
 
         if(value.length == 7 && value[6] == '-') {
             // value is "YYMMDD-"
-            value = getCentury(value) + value;
+            value = getCentury(value.slice(0, 2)) + value;
         }
 
         if(value.length == 8 && value.indexOf('-') == -1) {
@@ -45,7 +46,7 @@ angular.module('inputTypes')
     }
 
     function getCentury(year) {
-        if(year > centuryNow) {
+        if(year > yearNow) {
             return centuryNow - 1
         }
         return centuryNow;
