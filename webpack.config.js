@@ -14,8 +14,7 @@ module.exports = {
       minimize: true,
       compress: {
         drop_console: true
-      },
-      mangle: false
+      }
     }),
     new webpack.BannerPlugin({banner: 'Angular Input Types v' + require('./package.json').version + `
 (c) 2017 Jon Wikman. https://github.com/FlaxHaxx/angular-input-types
