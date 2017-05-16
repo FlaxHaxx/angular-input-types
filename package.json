@@ -1,7 +1,7 @@
 {
   "name": "angular-input-types",
   "description": "AngularJS directives used on form inputs. Makes it easy for the users to input the correct information using autocomplete and validation.",
-  "version": "1.0.1-SNAPSHOT",
+  "version": "1.0.1",
   "license": "MIT",
   "author": "Jon Wikman",
   "homepage": "https://github.com/FlaxHaxx/angular-input-types",
