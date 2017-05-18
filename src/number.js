@@ -10,7 +10,7 @@ angular.module('inputTypes')
             return null;
         }
 
-        var plainNumber = value.replace(new RegExp('[^\\d|\\-+|\\' + decimalSeparator + '+]', 'g'), '');
+        var plainNumber = value.replace('.', decimalSeparator).replace(new RegExp('[^\\d|\\-+|\\' + decimalSeparator + '+]', 'g'), '');
 
         var regExp = '^\\d+';
         if(nrOfDecimals > 0) {
