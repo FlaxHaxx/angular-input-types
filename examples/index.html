@@ -21,8 +21,9 @@
         <input type="tel" id="orgnr" ng-model="orgnr" input-orgnr/>
       </li>
       <li>
-        <label for="number">Number (modelValue={{number}})</label>
+        <label for="number">Number</label>
         <input type="tel" id="number" ng-model="number" input-number/>
+        <span ng-if="number">modelValue={{number}}</span>
       </li>
     </ul>
   </form>
