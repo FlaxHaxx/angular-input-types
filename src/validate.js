@@ -1,6 +1,18 @@
 angular.module('inputTypes')
 
 .factory('validate', function () {
+    function int(value) {
+        if(isNaN(value)) {
+            return false;
+        }
+        var x = parseFloat(value);
+        return (x | 0) === x;
+    }
+
+    function number(value) {
+        return !isNaN(value);
+    }
+
     function personnummer(value) {
         return value.length == 13 && dateOrSamordningsnummer(value) && luhnAlgoritm(value);
     }
@@ -58,6 +70,8 @@ angular.module('inputTypes')
     }
 
     return {
+        int: int,
+        number: number,
         personnummer: personnummer,
         orgnr: orgnr
     }

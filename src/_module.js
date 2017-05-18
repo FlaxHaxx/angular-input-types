@@ -1,5 +1,7 @@
 angular.module('inputTypes', []);
 
+require('./input-utils');
 require('./validate');
-require('./personnummer');
+require('./number');
 require('./orgnr');
+require('./personnummer');
