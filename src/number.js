@@ -5,17 +5,33 @@ angular.module('inputTypes')
     var decimalSeparator = ',';
     var nrOfDecimals = 2;
 
-    function format(value) {
-        return ('' + value).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, function($1) { return $1 + thousandSeparator });
-    }
-
     function plainNumber(value) {
         if(value === null) {
             return null;
         }
+
         var plainNumber = value.replace(new RegExp('[^\\d|\\-+|\\' + decimalSeparator + '+]', 'g'), '');
-        plainNumber = plainNumber.match(new RegExp('^\\d+\\' + decimalSeparator + '?\\d{0,' + nrOfDecimals + '}', 'g'));
-        return plainNumber == null ? null : plainNumber[0];
+
+        var regExp = '^\\d+';
+        if(nrOfDecimals > 0) {
+            regExp += '(\\' + decimalSeparator + '\\d{0,' + nrOfDecimals + '})?';
+        }
+        plainNumber = plainNumber.match(new RegExp(regExp, 'g'));
+
+        return plainNumber === null ? null : plainNumber[0];
+    }
+
+    function setViewValue(inputElement, plainNumberValue, scope) {
+        var cursorPosition = inputUtils.getCursorPos(inputElement[0]);
+        inputElement.val(plainNumberValue === null ? '' : format(plainNumberValue));
+        inputElement.triggerHandler('input');
+        if(plainNumberValue !== null) {
+            scope.$evalAsync(inputUtils.setCursorPos(inputElement[0], cursorPosition + (plainNumberValue.toString().length % 3 == 1 ? 1 : 0)));
+        }
+    }
+
+    function format(value) {
+        return ('' + value).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, function($1) { return $1 + thousandSeparator });
     }
 
     return {
@@ -24,22 +40,11 @@ angular.module('inputTypes')
         link: function(scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function(viewValue) {
                 if(!viewValue) {
-                    return '';
-                }
-
-                var cursorPosition = inputUtils.getCursorPos(elm[0]);
-                var modelValue = plainNumber(viewValue);
-
-                if(modelValue === null) {
-                    elm.val('');
-                    elm.triggerHandler('input');
                     return null;
                 }
-
-                elm.val(format(modelValue));
-                modelValue = modelValue.replace(decimalSeparator, '.');
-                scope.$evalAsync(inputUtils.setCursorPos(elm[0], cursorPosition + (modelValue.toString().length % 3 == 1 ? 1 : 0)));
-                return modelValue;
+                var modelValue = plainNumber(viewValue);
+                setViewValue(elm, modelValue, scope);
+                return modelValue === null ? null : modelValue.replace(decimalSeparator, '.').replace(/\.$/, '');
             });
         }
     }
