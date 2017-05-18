@@ -10,6 +10,9 @@ angular.module('inputTypes')
     }
 
     function plainNumber(value) {
+        if(value === null) {
+            return null;
+        }
         var plainNumber = value.replace(new RegExp('[^\\d|\\-+|\\' + decimalSeparator + '+]', 'g'), '');
         plainNumber = plainNumber.match(new RegExp('^\\d+\\' + decimalSeparator + '?\\d{0,' + nrOfDecimals + '}', 'g'));
         return plainNumber == null ? null : plainNumber[0];
@@ -23,8 +26,16 @@ angular.module('inputTypes')
                 if(!viewValue) {
                     return '';
                 }
+
                 var cursorPosition = inputUtils.getCursorPos(elm[0]);
                 var modelValue = plainNumber(viewValue);
+
+                if(modelValue === null) {
+                    elm.val('');
+                    elm.triggerHandler('input');
+                    return null;
+                }
+
                 elm.val(format(modelValue));
                 modelValue = modelValue.replace(decimalSeparator, '.');
                 scope.$evalAsync(inputUtils.setCursorPos(elm[0], cursorPosition + (modelValue.toString().length % 3 == 1 ? 1 : 0)));
