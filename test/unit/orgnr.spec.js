@@ -9,7 +9,7 @@ describe('orgnr', function () {
             $rootScope.$digest();
             form = $rootScope.form;
         }));
-        it('should validate tomt orgnr', function () {
+        it('should validate empty orgnr', function () {
             expect(form.orgnr.$valid).toBe(true);
         });
         it('should validate personnummer 20121212-1212', function () {
