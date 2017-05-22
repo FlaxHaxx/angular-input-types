@@ -138,4 +138,28 @@ describe('validate', function () {
             expect(validate.orgnr('19010229-1235')).toBe(false);
         }));
     });
+
+    describe('time', function () {
+        it('should validate 00:00', inject(function (validate) {
+            expect(validate.time('00:00')).toBe(true);
+        }));
+        it('should validate 12:30', inject(function (validate) {
+            expect(validate.time('12:30')).toBe(true);
+        }));
+        it('should validate 23:59', inject(function (validate) {
+            expect(validate.time('23:59')).toBe(true);
+        }));
+        it('should not validate 00:60', inject(function (validate) {
+            expect(validate.time('00:60')).toBe(false);
+        }));
+        it('should not validate 24:00', inject(function (validate) {
+            expect(validate.time('24:00')).toBe(false);
+        }));
+        it('should not validate -1:00', inject(function (validate) {
+            expect(validate.time('-1:00')).toBe(false);
+        }));
+        it('should not validate 00:-1', inject(function (validate) {
+            expect(validate.time('00:-1')).toBe(false);
+        }));
+    });
 });

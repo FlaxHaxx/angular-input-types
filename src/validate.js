@@ -36,6 +36,28 @@ angular.module('inputTypes')
         return luhnAlgoritm(value);
     }
 
+    function time(value) {
+        if(value.length != 5) {
+            return false;
+        }
+
+        if(value.charAt(2) !== ':') {
+            return false;
+        }
+
+        var hours = value.substring(0, 2);
+        if(hours < 0 || hours > 23) {
+            return false;
+        }
+
+        var mins = value.substring(3, 5);
+        if(mins < 0 || mins > 59) {
+            return false;
+        }
+
+        return true;
+    }
+
     function dateOrSamordningsnummer(value) {
         if (!value.match(/^(\d{4})(\d{2})(\d{2})\-(\d{4})$/)) {
             return false;
@@ -73,6 +95,7 @@ angular.module('inputTypes')
         int: int,
         number: number,
         personnummer: personnummer,
-        orgnr: orgnr
+        orgnr: orgnr,
+        time: time
     }
 });

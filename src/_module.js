@@ -5,3 +5,4 @@ require('./validate');
 require('./number');
 require('./orgnr');
 require('./personnummer');
+require('./time');
