@@ -8,6 +8,8 @@
 Angular Input Types is used to create form inputs which help users enter the correct format using autocomplete and validation. See available input types below.
 - [Swedish SSN (i.e. personnummer)](#swedish-ssn-ie-personnummer)
 - [Swedish organization number](#swedish-organization-number)
+- [Number (Beta)](#number-beta)
+- [Time (Beta)](#time-beta)
 
 # Demo
 There is a demo at https://www.blitter.se/angular-input-types/examples/
@@ -33,13 +35,33 @@ var app = angular.module('exampleApp', [ 'inputTypes' ]);
 See how to use different input types below.
 
 ## Swedish SSN (i.e. personnummer)
-Helps the user to enter a swedish SSN in the format of yyyymmdd-nnnn. The input must have an ng-model for the validation to work.
+Helps the user to enter a swedish SSN in the format of yyyymmdd-nnnn.
+
+The input must have an ng-model for the validation to work.
 ```html
 <input type="tel" id="personnummer" ng-model="personnummer" input-personnummer/>
 ```
 
 ## Swedish organization number
-Helps the user to enter an swedish organization number in the format of nnnnnn-nnnn or nnnnnnnn-nnnn. Also allows Swedish SSN as that could be an organization number. The input must have an ng-model for the validation to work.
+Helps the user to enter an swedish organization number in the format of nnnnnn-nnnn or nnnnnnnn-nnnn. Also allows Swedish SSN as that could be an organization number.
+
+The input must have an ng-model for the validation to work.
 ```html
 <input type="tel" id="orgnr" ng-model="orgnr" input-orgnr/>
+```
+
+## Number (Beta)
+Helps the user to enter a number by adding thousand separators and restricting number of decimals.
+
+The input must have an ng-model for the validation to work.
+```html
+<input type="text" id="number" ng-model="number" input-number/>
+```
+
+## Time (Beta)
+Helps the user to enter a time using native time input on mobile devices by setting `type="time"` on the input element. The `input-time` attribute adds validation plus autocomplete as fallback.
+
+The input must have an ng-model for the validation to work.
+```html
+<input type="time" id="time" ng-model="time" input-time/>
 ```
