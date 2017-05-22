@@ -20,7 +20,18 @@ angular.module('inputTypes')
                 }
 
                 var newValue = viewValue.trim();
+
+                if(newValue.indexOf(':') == 4) {
+                    newValue = newValue.replace(':', '');
+                }
+
                 if(newValue.length == 2 && newValue.indexOf(':') === -1) {
+                    newValue += ':';
+                    setViewValue(elm, newValue);
+                    return newValue;
+                }
+
+                if(newValue.charAt(2) == 2 && newValue.indexOf(':') === -1) {
                     newValue += ':';
                     setViewValue(elm, newValue);
                     return newValue;
