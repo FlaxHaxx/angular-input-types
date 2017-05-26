@@ -1,9 +1,48 @@
 angular.module('inputTypes')
 
 .directive('inputTime', ['$browser', '$parse', 'validate', function($browser, $parse, validate) {
+    function format(value) {
+        if(value.length > 5) {
+            return value.substring(0, 5);
+        }
+
+        if(value.charAt(value.length - 1) == ':') {
+            while(value.length < 3) {
+                value = '0' + value;
+            }
+        }
+
+        if(value.length == 2) {
+            return value + ':';
+        }
+
+        if(value.length > 4 && value.charAt(4) == ':') {
+            return value.substring(0, 4);
+        }
+
+        return value;
+    }
+
+    function formatPaste(value) {
+        value == value.match(/\d{1,2}:\d{2}/g)[0];
+        if(value.length == 5) {
+            return value;
+        }
+
+        if(value.length == 4) {
+            return '0' + value;
+        }
+
+        return '';
+    }
+
     function setViewValue(inputElement, value) {
         inputElement.val(value === null ? '' : value);
         inputElement.triggerHandler('input');
+    }
+
+    function filterInput(value) {
+        return value.replace(/[^0-9\:]/g, '').replace('::', ':');
     }
 
     return {
@@ -14,37 +53,30 @@ angular.module('inputTypes')
                 return ctrl.$isEmpty(modelValue) || validate.time(viewValue);
             }
 
-            ctrl.$parsers.unshift(function(viewValue) {
-                if(!viewValue) {
-                    return viewValue;
+            var listener = function() {
+                if(elm.val()) {
+                    setViewValue(elm, format(filterInput(elm.val())));
                 }
+            }
 
-                var newValue = viewValue.trim();
+            var pasteListener = function() {
+                setViewValue(elm, formatPaste(filterInput(elm.val())));
+            }
 
-                if(newValue.indexOf(':') == 4) {
-                    newValue = newValue.replace(':', '');
+            elm.bind('keydown', function(event) {
+                var key = event.keyCode;
+                // Backspace, delete, ctrl, shift, alt or meta keys
+                if(key == 8 || key == 46 || key == 91 || (15 < key && key < 19) || (37 <= key && key <= 40)) {
+                    return;
                 }
-
-                if(newValue.length == 2 && newValue.indexOf(':') === -1) {
-                    newValue += ':';
-                    setViewValue(elm, newValue);
-                    return newValue;
-                }
-
-                if(newValue.charAt(2) == 2 && newValue.indexOf(':') === -1) {
-                    newValue += ':';
-                    setViewValue(elm, newValue);
-                    return newValue;
-                }
-
-                if(newValue.length != 5) {
-                    newValue = newValue.substring(0, 5);
-                    setViewValue(elm, newValue);
-                    return newValue;
-                }
-
-                return newValue;
+                $browser.defer(listener);
             });
+
+            elm.bind('paste cut', function() {
+                $browser.defer(pasteListener);
+            });
+
+            elm.bind('change', pasteListener);
 
             if (attrs.ngModel) {
                 var modelValue = $parse(attrs.ngModel)(scope);
