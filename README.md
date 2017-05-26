@@ -9,7 +9,7 @@ Angular Input Types is used to create form inputs which help users enter the cor
 - [Swedish SSN (i.e. personnummer)](#swedish-ssn-ie-personnummer)
 - [Swedish organization number](#swedish-organization-number)
 - [Number (Beta)](#number-beta)
-- [Time (Beta)](#time-beta)
+- [Time](#time)
 
 # Demo
 There is a demo at https://www.blitter.se/angular-input-types/examples/
