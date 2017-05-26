@@ -1,6 +1,6 @@
 angular.module('inputTypes')
 
-.directive('inputTime', ['$browser', 'validate', function($browser, validate) {
+.directive('inputTime', ['$browser', '$parse', 'validate', function($browser, $parse, validate) {
     function setViewValue(inputElement, value) {
         inputElement.val(value === null ? '' : value);
         inputElement.triggerHandler('input');
@@ -46,10 +46,11 @@ angular.module('inputTypes')
                 return newValue;
             });
 
-            var time = scope[attrs.ngModel];
-            if(time != null) {
-                setViewValue(elm, time.getHours() + ':' + time.getMinutes());
-
+            if (attrs.ngModel) {
+                var modelValue = $parse(attrs.ngModel)(scope);
+                if(modelValue) {
+                    setViewValue(elm, modelValue.getHours() + ':' + modelValue.getMinutes());
+                }
             }
         }
     }
