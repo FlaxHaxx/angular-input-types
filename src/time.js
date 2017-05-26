@@ -45,6 +45,12 @@ angular.module('inputTypes')
 
                 return newValue;
             });
+
+            var time = scope[attrs.ngModel];
+            if(time != null) {
+                setViewValue(elm, time.getHours() + ':' + time.getMinutes());
+
+            }
         }
     }
 }]);
