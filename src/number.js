@@ -1,8 +1,8 @@
 angular.module('inputTypes')
 
-.directive('inputNumber', ['inputUtils', '$browser', '$filter', 'validate', function(inputUtils, $browser, $filter, validate) {
-    var thousandSeparator = ' ';
-    var decimalSeparator = ',';
+.directive('inputNumber', ['$browser', '$filter', '$locale', 'inputUtils', 'validate', function($browser, $filter, $locale, inputUtils, validate) {
+    var thousandSeparator = $locale.NUMBER_FORMATS.GROUP_SEP;
+    var decimalSeparator = $locale.NUMBER_FORMATS.DECIMAL_SEP;
     var nrOfDecimals = 2;
 
     function plainNumber(value) {
@@ -24,14 +24,15 @@ angular.module('inputTypes')
     function setViewValue(inputElement, plainNumberValue, scope) {
         var cursorPosition = inputUtils.getCursorPos(inputElement[0]);
         inputElement.val(plainNumberValue === null ? '' : format(plainNumberValue));
-        inputElement.triggerHandler('input');
         if(plainNumberValue !== null) {
             scope.$evalAsync(inputUtils.setCursorPos(inputElement[0], cursorPosition + (plainNumberValue.toString().length % 3 == 1 ? 1 : 0)));
         }
     }
 
     function format(value) {
-        return ('' + value).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, function($1) { return $1 + thousandSeparator });
+        var parts = (value + '').split(decimalSeparator);
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousandSeparator);
+        return parts.join(decimalSeparator);
     }
 
     return {
