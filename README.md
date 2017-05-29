@@ -9,7 +9,7 @@ Angular Input Types is used to create form inputs which help users enter the cor
 - [Swedish SSN (i.e. personnummer)](#swedish-ssn-ie-personnummer)
 - [Swedish organization number](#swedish-organization-number)
 - [Number (Beta)](#number-beta)
-- [Time (Beta)](#time-beta)
+- [Time](#time)
 
 # Demo
 There is a demo at https://www.blitter.se/angular-input-types/examples/
@@ -58,10 +58,12 @@ The input must have an `ng-model` for the validation to work.
 <input type="text" id="number" ng-model="number" input-number/>
 ```
 
-## Time (Beta)
+## Time
 Helps the user to enter a time using native time input on mobile devices by setting `type="time"` on the input element. The `input-time` attribute adds validation plus autocomplete as fallback.
 
 The input must have an `ng-model` for the validation to work.
 ```html
 <input type="time" id="time" ng-model="time" input-time/>
 ```
+
+![input-time on Android](https://github.com/FlaxHaxx/angular-input-types/raw/master/examples/gallery/input-time-android.png)
