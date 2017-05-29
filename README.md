@@ -50,12 +50,12 @@ The input must have an `ng-model` for the validation to work.
 <input type="tel" id="orgnr" ng-model="orgnr" input-orgnr/>
 ```
 
-## Number (Beta)
+## Number
 Helps the user to enter a number by adding thousand separators and restricting number of decimals.
 
-The input must have an `ng-model` for the validation to work.
+The input must have an `ng-model` for the validation to work. The type has to be `tel` to work in Firefox on Android.
 ```html
-<input type="text" id="number" ng-model="number" input-number/>
+<input type="tel" id="number" ng-model="number" input-number/>
 ```
 
 ## Time
