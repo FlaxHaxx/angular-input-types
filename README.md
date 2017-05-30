@@ -58,6 +58,21 @@ The input must have an `ng-model` for the validation to work. The type has to be
 <input type="tel" id="number" ng-model="number" input-number/>
 ```
 
+Change number of decimals like this. Default is no decimals.
+```javascript
+angular.module('myApp').config(['inputNumberProvider', function(inputNumberProvider) {
+    inputNumberProvider.nrOfDecimals = 2;
+}]);
+```
+
+The thousand separator and decimal separators are based on which language the browser is using. You can override these like this.
+```javascript
+angular.module('myApp').run(['$locale', function($locale) {
+  $locale.NUMBER_FORMATS.GROUP_SEP = ' '; // Use space as thousand separtor
+  $locale.NUMBER_FORMATS.DECIMAL_SEP = ','; // Use comma as decimal separator
+}])
+```
+
 ## Time
 Helps the user to enter a time using native time input on mobile devices by setting `type="time"` on the input element. The `input-time` attribute adds validation plus autocomplete as fallback.
 
