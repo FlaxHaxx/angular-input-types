@@ -1,9 +1,17 @@
 angular.module('inputTypes')
 
-.directive('inputNumber', ['$browser', '$filter', '$locale', 'inputUtils', 'validate', function($browser, $filter, $locale, inputUtils, validate) {
+.provider('inputNumber', function() {
+    this.nrOfDecimals = 0;
+
+    this.$get = function() {
+        return this;
+    }
+})
+
+.directive('inputNumber', ['$browser', '$filter', '$locale', 'inputNumber', 'inputUtils', 'validate', function($browser, $filter, $locale, inputNumber, inputUtils, validate) {
     var thousandSeparator = $locale.NUMBER_FORMATS.GROUP_SEP;
     var decimalSeparator = $locale.NUMBER_FORMATS.DECIMAL_SEP;
-    var nrOfDecimals = 2;
+    var nrOfDecimals = inputNumber.nrOfDecimals;
 
     function plainNumber(value) {
         if(value === null) {
@@ -25,7 +33,7 @@ angular.module('inputTypes')
         var cursorPosition = inputUtils.getCursorPos(inputElement[0]);
         inputElement.val(plainNumberValue === null ? '' : format(plainNumberValue));
         if(plainNumberValue !== null) {
-            scope.$evalAsync(inputUtils.setCursorPos(inputElement[0], cursorPosition + (plainNumberValue.toString().length % 3 == 1 ? 1 : 0)));
+            scope.$evalAsync(inputUtils.setCursorPos(inputElement[0], cursorPosition + (plainNumberValue.toString().length > 3 && plainNumberValue.toString().length % 3 == 1 ? 1 : 0)));
         }
     }
 

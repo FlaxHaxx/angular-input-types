@@ -2,6 +2,8 @@ angular.module('inputTypes')
 
 .service('inputUtils', function() {
     this.getCursorPos = function(htmlElement) {
+        htmlElement.blur(); // Firefox Android fix
+        htmlElement.focus(); // Firefox Android fix
         return htmlElement.selectionStart;
     };
 
