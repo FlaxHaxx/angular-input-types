@@ -8,7 +8,7 @@
 Angular Input Types is used to create form inputs which help users enter the correct format using autocomplete and validation. See available input types below.
 - [Swedish SSN (i.e. personnummer)](#swedish-ssn-ie-personnummer)
 - [Swedish organization number](#swedish-organization-number)
-- [Number (Beta)](#number-beta)
+- [Number](#number)
 - [Time](#time)
 
 # Demo
