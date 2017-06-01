@@ -28,7 +28,7 @@ Include angular-input-types.min.js on the page.
 ```
 
 Include the `inputTypes` dependency in on your AngularJS module.
-```html
+```javascript
 var app = angular.module('exampleApp', [ 'inputTypes' ]);
 ```
 
