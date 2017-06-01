@@ -68,7 +68,7 @@ angular.module('myApp').config(['inputNumberProvider', function(inputNumberProvi
 The thousand separator and decimal separators are based on which language the browser is using. You can override these like this.
 ```javascript
 angular.module('myApp').run(['$locale', function($locale) {
-  $locale.NUMBER_FORMATS.GROUP_SEP = ' '; // Use space as thousand separtor
+  $locale.NUMBER_FORMATS.GROUP_SEP = ' '; // Use space as thousand separator
   $locale.NUMBER_FORMATS.DECIMAL_SEP = ','; // Use comma as decimal separator
 }])
 ```
