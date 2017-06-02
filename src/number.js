@@ -12,6 +12,7 @@ angular.module('inputTypes')
     var thousandSeparator = $locale.NUMBER_FORMATS.GROUP_SEP;
     var decimalSeparator = $locale.NUMBER_FORMATS.DECIMAL_SEP;
     var nrOfDecimals = inputNumber.nrOfDecimals;
+    var previousValue = '';
 
     function plainNumber(value) {
         if(value === null) {
@@ -33,7 +34,22 @@ angular.module('inputTypes')
         var cursorPosition = inputUtils.getCursorPos(inputElement[0]);
         inputElement.val(plainNumberValue === null ? '' : format(plainNumberValue));
         if(plainNumberValue !== null) {
-            scope.$evalAsync(inputUtils.setCursorPos(inputElement[0], cursorPosition + (plainNumberValue.toString().length > 3 && plainNumberValue.toString().length % 3 == 1 ? 1 : 0)));
+            var previousValueLength = ('' + previousValue).length;
+            var plainNumberLength = plainNumberValue.toString().length;
+
+            if(plainNumberLength > 3 && plainNumberLength % 3 == 1) {
+                cursorPosition++;
+            }
+
+            if(previousValueLength > plainNumberLength) {
+                cursorPosition--;
+                if(previousValueLength % 3 > 0 && cursorPosition > 0) {
+                    cursorPosition--;
+                }
+            }
+
+            scope.$evalAsync(inputUtils.setCursorPos(inputElement[0], cursorPosition));
+            previousValue = plainNumberValue.toString();
         }
     }
 
