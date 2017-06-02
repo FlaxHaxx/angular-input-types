@@ -1,30 +1,6 @@
 describe('validate', function () {
     beforeEach(module('inputTypes'));
 
-    describe('int', function () {
-        it('should validate 1', inject(function (validate) {
-            expect(validate.int(1)).toBe(true);
-        }));
-        it('should validate 0', inject(function (validate) {
-            expect(validate.int(1)).toBe(true);
-        }));
-        it('should validate -1', inject(function (validate) {
-            expect(validate.int(1)).toBe(true);
-        }));
-        it('should validate "1"', inject(function (validate) {
-            expect(validate.int('1')).toBe(true);
-        }));
-        it('should not validate 1.1', inject(function (validate) {
-            expect(validate.int(1.1)).toBe(false);
-        }));
-        it('should not validate "1,1"', inject(function (validate) {
-            expect(validate.int('1,1')).toBe(false);
-        }));
-        it('should not validate "text"', inject(function (validate) {
-            expect(validate.int("text")).toBe(false);
-        }));
-    });
-
     describe('number', function () {
         it('should validate 1', inject(function (validate) {
             expect(validate.number(1)).toBe(true);
