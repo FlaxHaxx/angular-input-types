@@ -8,7 +8,8 @@ angular.module('inputTypes')
     }
 })
 
-.directive('inputNumber', ['$browser', '$filter', '$locale', 'inputNumber', 'inputUtils', 'validate', function($browser, $filter, $locale, inputNumber, inputUtils, validate) {
+.directive('inputNumber', ['$browser', '$filter', '$locale', '$parse', 'inputNumber', 'inputUtils', 'validate',
+        function($browser, $filter, $locale, $parse, inputNumber, inputUtils, validate) {
     var thousandSeparator = $locale.NUMBER_FORMATS.GROUP_SEP;
     var decimalSeparator = $locale.NUMBER_FORMATS.DECIMAL_SEP;
     var nrOfDecimals = inputNumber.nrOfDecimals;
@@ -19,7 +20,7 @@ angular.module('inputTypes')
             return null;
         }
 
-        var plainNumber = value.replace('.', decimalSeparator).replace(new RegExp('[^\\d|\\-+|\\' + decimalSeparator + '+]', 'g'), '');
+        var plainNumber = ('' + value).replace('.', decimalSeparator).replace(new RegExp('[^\\d|\\-+|\\' + decimalSeparator + '+]', 'g'), '');
 
         var regExp = '^\\d+';
         if(nrOfDecimals > 0) {
@@ -33,6 +34,7 @@ angular.module('inputTypes')
     function setViewValue(inputElement, plainNumberValue, scope) {
         var cursorPosition = inputUtils.getCursorPos(inputElement[0]);
         inputElement.val(plainNumberValue === null ? '' : format(plainNumberValue));
+        inputElement.triggerHandler('input');
         if(plainNumberValue !== null) {
             var plainNumberLength = plainNumberValue.toString().split(decimalSeparator)[0].length;
 
@@ -67,6 +69,13 @@ angular.module('inputTypes')
                 setViewValue(elm, modelValue, scope);
                 return modelValue === null ? null : modelValue.replace(decimalSeparator, '.').replace(/\.$/, '');
             });
+
+            if (attrs.ngModel) {
+                var modelValue = $parse(attrs.ngModel)(scope);
+                if(modelValue) {
+                    setViewValue(elm, plainNumber(modelValue), scope);
+                }
+            }
         }
     }
 }]);
