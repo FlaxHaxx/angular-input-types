@@ -45,7 +45,7 @@ angular.module('inputTypes')
         return value.replace(/[^0-9\:]/g, '').replace('::', ':');
     }
 
-    function addleadingZeroIfLessThen10(value) {
+    function addLeadingZeroIfLessThen10(value) {
         return ('0' + value).slice(-2);
     }
 
@@ -85,7 +85,7 @@ angular.module('inputTypes')
             if (attrs.ngModel) {
                 var modelValue = $parse(attrs.ngModel)(scope);
                 if(modelValue) {
-                    setViewValue(elm, addleadingZeroIfLessThen10(modelValue.getHours()) + ':' + addleadingZeroIfLessThen10(modelValue.getMinutes()));
+                    setViewValue(elm, addLeadingZeroIfLessThen10(modelValue.getHours()) + ':' + addLeadingZeroIfLessThen10(modelValue.getMinutes()));
                 }
             }
         }
