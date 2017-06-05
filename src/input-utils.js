@@ -2,15 +2,16 @@ angular.module('inputTypes')
 
 .service('inputUtils', function() {
     this.getCursorPos = function(htmlElement) {
-        htmlElement.blur(); // Firefox Android fix
-        htmlElement.focus(); // Firefox Android fix
-        return htmlElement.selectionStart;
+        return htmlElement.selectionEnd;
     };
 
     this.setCursorPos = function(htmlElement, pos) {
         if (htmlElement.setSelectionRange) {
             htmlElement.focus();
-            htmlElement.setSelectionRange(pos, pos);
+            window.setTimeout(function() {
+                // Android Chrome
+                htmlElement.setSelectionRange(pos, pos);
+            });
         } else if(htmlElement.createTextRange) {
             // IE compatible
             var range = htmlElement.createTextRange();

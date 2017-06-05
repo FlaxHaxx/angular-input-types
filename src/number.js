@@ -40,11 +40,8 @@ angular.module('inputTypes')
                 cursorPosition++;
             }
 
-            if(previousValueLength > plainNumberLength) {
+            if(previousValueLength > plainNumberLength && previousValueLength % 3 > 0 && cursorPosition > 0) {
                 cursorPosition--;
-                if(previousValueLength % 3 > 0 && cursorPosition > 0) {
-                    cursorPosition--;
-                }
             }
 
             scope.$evalAsync(inputUtils.setCursorPos(inputElement[0], cursorPosition));
