@@ -32,7 +32,6 @@ angular.module('inputTypes')
     }
 
     function setViewValue(inputElement, plainNumberValue, scope) {
-        inputElement.triggerHandler('input');
         var cursorPosition = inputUtils.getCursorPos(inputElement[0]);
         inputElement.val(plainNumberValue === null ? '' : format(plainNumberValue));
         if(plainNumberValue !== null) {
@@ -74,6 +73,7 @@ angular.module('inputTypes')
                 var modelValue = $parse(attrs.ngModel)(scope);
                 if(modelValue) {
                     setViewValue(elm, plainNumber(modelValue), scope);
+                    elm.triggerHandler('change');
                 }
             }
         }
