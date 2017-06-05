@@ -40,7 +40,7 @@ angular.module('inputTypes')
                 cursorPosition++;
             }
 
-            if(previousValueLength > plainNumberLength && previousValueLength % 3 > 0 && cursorPosition > 0) {
+            if(previousValueLength > plainNumberLength && previousValueLength > 3 && previousValueLength % 3 > 0 && cursorPosition > 0) {
                 cursorPosition--;
             }
 
