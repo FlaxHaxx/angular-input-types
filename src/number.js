@@ -32,9 +32,9 @@ angular.module('inputTypes')
     }
 
     function setViewValue(inputElement, plainNumberValue, scope) {
+        inputElement.triggerHandler('input');
         var cursorPosition = inputUtils.getCursorPos(inputElement[0]);
         inputElement.val(plainNumberValue === null ? '' : format(plainNumberValue));
-        inputElement.triggerHandler('input');
         if(plainNumberValue !== null) {
             var plainNumberLength = plainNumberValue.toString().split(decimalSeparator)[0].length;
 
