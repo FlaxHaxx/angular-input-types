@@ -73,7 +73,7 @@ angular.module('inputTypes')
                 var modelValue = $parse(attrs.ngModel)(scope);
                 if(modelValue) {
                     setViewValue(elm, plainNumber(modelValue), scope);
-                    elm.triggerHandler('keydown'); // Update viewValue
+                    elm.triggerHandler('change'); // Update viewValue
                 }
             }
         }

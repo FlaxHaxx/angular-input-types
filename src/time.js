@@ -86,7 +86,7 @@ angular.module('inputTypes')
                 var modelValue = $parse(attrs.ngModel)(scope);
                 if(modelValue) {
                     setViewValue(elm, addLeadingZeroIfLessThen10(modelValue.getHours()) + ':' + addLeadingZeroIfLessThen10(modelValue.getMinutes()));
-                    elm.triggerHandler('keydown'); // Make IE update viewValue
+                    elm.triggerHandler('change'); // Make IE update viewValue
                 }
             }
         }
