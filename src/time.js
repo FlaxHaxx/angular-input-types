@@ -53,9 +53,14 @@ angular.module('inputTypes')
         restrict: 'A',
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
-            ctrl.$validators.time = function(modelValue, viewValue) {
-                return ctrl.$isEmpty(modelValue) || validate.time(viewValue);
-            }
+            ctrl.$parsers.unshift(function(value) {
+                if(value && value.length > 5) {
+                    value = value.substring(0, 5);
+                }
+                var valid = ctrl.$isEmpty(value) || validate.time(value);
+                ctrl.$setValidity('time', valid);
+                return valid ? value : undefined;
+            });
 
             var listener = function() {
                 if(elm.val()) {
