@@ -58,11 +58,16 @@ angular.module('inputTypes')
         return parts.join(decimalSeparator);
     }
 
+    function getNrOfDecimals(value, separator) {
+        return value.indexOf(separator) == -1 ? 0 : value.split(separator)[1].length;
+    }
+
     return {
         restrict: 'A',
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
             var attrDecimals = scope.$eval(attrs.decimals);
+
             if(attrDecimals !== undefined) {
                 nrOfDecimals = attrDecimals;
             }
@@ -71,11 +76,21 @@ angular.module('inputTypes')
                 if(!viewValue) {
                     return undefined;
                 }
+
                 var modelValue = plainNumber(viewValue);
-                if(modelValue == null || (modelValue.indexOf(decimalSeparator) != -1 && modelValue.split(decimalSeparator)[1].length > nrOfDecimals)) {
+
+                if(modelValue == null || getNrOfDecimals(modelValue, decimalSeparator) > nrOfDecimals) {
                     return undefined;
                 }
+
                 setViewValue(elm, modelValue, scope);
+
+                if(getNrOfDecimals(viewValue, decimalSeparator) > nrOfDecimals) {
+                    // Possible to enter more than allowed decimals if this is not triggered
+                    // TODO Fix cursor position, it now moves to the end
+                    elm.triggerHandler('input');
+                }
+
                 return modelValue === null ? null : modelValue.replace(decimalSeparator, '.').replace(/\.$/, '');
             });
 
