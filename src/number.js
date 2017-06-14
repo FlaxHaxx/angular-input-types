@@ -42,7 +42,7 @@ angular.module('inputTypes')
                 cursorPosition++;
             }
 
-            if(cursorPosition > 0 && previousValueLength > plainNumberLength && previousValueLength % 3 > 0) {
+            if(cursorPosition > 1 && previousValueLength > plainNumberLength && previousValueLength % 3 > 0) {
                 // Character deleted and one less decimal separator
                 cursorPosition--;
             }
