@@ -16,7 +16,7 @@ angular.module('inputTypes')
     var previousValueLength = 0;
 
     function plainNumber(value) {
-        if(value === null) {
+        if(value == null) {
             return null;
         }
 
@@ -34,15 +34,16 @@ angular.module('inputTypes')
     function setViewValue(inputElement, plainNumberValue, scope) {
         var cursorPosition = inputUtils.getCursorPos(inputElement[0]);
         inputElement.val(plainNumberValue === null ? '' : format(plainNumberValue));
-        inputElement.triggerHandler('change');
         if(plainNumberValue !== null) {
             var plainNumberLength = plainNumberValue.toString().split(decimalSeparator)[0].length;
 
-            if(plainNumberLength > 3 && plainNumberLength % 3 == 1) {
+            if(plainNumberLength > 1 && plainNumberLength % 3 == 1 && cursorPosition <= (plainNumberLength + Math.floor(plainNumberLength / 3))) {
+                // New thousand separator added
                 cursorPosition++;
             }
 
-            if(previousValueLength > plainNumberLength && previousValueLength > 3 && previousValueLength % 3 > 0 && cursorPosition > 0) {
+            if(cursorPosition > 0 && previousValueLength > plainNumberLength && previousValueLength % 3 > 0) {
+                // character deleted and one less decimal separator
                 cursorPosition--;
             }
 
@@ -63,9 +64,12 @@ angular.module('inputTypes')
         link: function(scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function(viewValue) {
                 if(!viewValue) {
-                    return null;
+                    return undefined;
                 }
                 var modelValue = plainNumber(viewValue);
+                if(modelValue == null || (modelValue.indexOf(decimalSeparator) != -1 && modelValue.split(decimalSeparator)[1].length > nrOfDecimals)) {
+                    return undefined;
+                }
                 setViewValue(elm, modelValue, scope);
                 return modelValue === null ? null : modelValue.replace(decimalSeparator, '.').replace(/\.$/, '');
             });
