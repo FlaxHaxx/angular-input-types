@@ -58,11 +58,15 @@ The input must have an `ng-model` for the validation to work. The type has to be
 <input type="tel" id="number" ng-model="number" input-number/>
 ```
 
-Change number of decimals like this. Default is no decimals.
+Change number of decimals for all `input-number` fields. Default is no decimals.
 ```javascript
 angular.module('myApp').config(['inputNumberProvider', function(inputNumberProvider) {
     inputNumberProvider.nrOfDecimals = 2;
 }]);
+```
+Change number of decimals for a single field.
+```html
+<input type="tel" id="number" ng-model="number" input-number decimals="2"/>
 ```
 
 The thousand separator and decimal separators are based on which language the browser is using. You can override these like this.
