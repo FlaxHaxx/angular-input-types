@@ -62,6 +62,11 @@ angular.module('inputTypes')
         restrict: 'A',
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
+            var attrDecimals = scope.$eval(attrs.decimals);
+            if(attrDecimals !== undefined) {
+                nrOfDecimals = attrDecimals;
+            }
+
             ctrl.$parsers.unshift(function(viewValue) {
                 if(!viewValue) {
                     return undefined;
