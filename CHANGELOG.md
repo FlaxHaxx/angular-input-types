@@ -1,3 +1,10 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/FlaxHaxx/angular-input-types/compare/1.0.1...1.1.0) (2017-07-01)
+
+## Features
+* **Time input:** Using native time input if available, otherwise fallback to validation and autocomplete.
+* **Number input:** Input numbers with thousand separator and select number of decimals.
+
 <a name="1.0.1"></a>
 # [1.0.1](https://github.com/FlaxHaxx/angular-input-types/compare/1.0.0...1.0.1) (2017-05-15)
 
