@@ -28,12 +28,12 @@
   "devDependencies": {
     "angular": "^1.6.5",
     "angular-mocks": "^1.6.5",
-    "jasmine-core": "^2.6.4",
+    "jasmine-core": "^2.7.0",
     "karma": "^1.7.0",
     "karma-jasmine": "^1.1.0",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-webpack": "^2.0.3",
-    "webpack": "~3.1.0"
+    "webpack": "~3.5.4"
   },
   "scripts": {
     "build": "webpack",
