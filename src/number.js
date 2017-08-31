@@ -76,7 +76,6 @@ angular.module('inputTypes')
             }
 
             var attrMin = scope.$eval(attrs.min);
-            var minValue = attrMin !== undefined ? attrMin : 0;
 
             ctrl.$parsers.unshift(function(viewValue) {
                 if(!viewValue) {
@@ -98,7 +97,7 @@ angular.module('inputTypes')
                 }
 
                 ctrl.$validators.min = function(modelValue, viewValue) {
-                    return ctrl.$isEmpty(modelValue) || modelValue >= minValue;
+                    return ctrl.$isEmpty(modelValue) || attrMin === undefined || modelValue >= attrMin;
                 }
 
                 return modelValue === null ? null : modelValue.replace(decimalSeparator, '.').replace(/\.$/, '');
