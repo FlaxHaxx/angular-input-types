@@ -22,7 +22,7 @@ angular.module('inputTypes')
 
         var plainNumber = ('' + value).replace('.', decimalSeparator).replace(new RegExp('[^\\d|\\-+|\\' + decimalSeparator + '+]', 'g'), '');
 
-        var regExp = '^\\d+';
+        var regExp = '^\\-?\\d+';
         if(nrOfDecimals > 0) {
             regExp += '(\\' + decimalSeparator + '\\d{0,' + nrOfDecimals + '})?';
         }
@@ -36,6 +36,10 @@ angular.module('inputTypes')
         inputElement.val(plainNumberValue === null ? '' : format(plainNumberValue));
         if(plainNumberValue !== null) {
             var plainNumberLength = plainNumberValue.toString().split(decimalSeparator)[0].length;
+            if(plainNumberLength > 0 && plainNumberValue.charAt(0) == '-') {
+                // Remove the minus sign when calculating length for the thousand separators
+                plainNumberLength--;
+            }
 
             if(plainNumberLength > 1 && plainNumberLength % 3 == 1 && cursorPosition <= (plainNumberLength + Math.floor(plainNumberLength / 3))) {
                 // New thousand separator added
@@ -67,10 +71,12 @@ angular.module('inputTypes')
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
             var attrDecimals = scope.$eval(attrs.decimals);
-
             if(attrDecimals !== undefined) {
                 nrOfDecimals = attrDecimals;
             }
+
+            var attrMin = scope.$eval(attrs.min);
+            var minValue = attrMin !== undefined ? attrMin : 0;
 
             ctrl.$parsers.unshift(function(viewValue) {
                 if(!viewValue) {
@@ -89,6 +95,10 @@ angular.module('inputTypes')
                     // Possible to enter more than allowed decimals if this is not triggered
                     // TODO Fix cursor position, it now moves to the end
                     elm.triggerHandler('input');
+                }
+
+                ctrl.$validators.min = function(modelValue, viewValue) {
+                    return ctrl.$isEmpty(modelValue) || modelValue >= minValue;
                 }
 
                 return modelValue === null ? null : modelValue.replace(decimalSeparator, '.').replace(/\.$/, '');

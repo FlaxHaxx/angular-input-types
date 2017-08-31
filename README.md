@@ -92,6 +92,13 @@ Change number of decimals for a single field.
 <input type="tel" id="number" ng-model="number" input-number decimals="2"/>
 ```
 
+Set a minimum allowed value.
+
+```html
+<!-- This example only allows positive values -->
+<input type="tel" id="number" ng-model="number" input-number min="0"/>
+```
+
 ## Time
 
 Helps the user to enter a time using native time input on mobile devices by setting `type="time"` on the input element. The `input-time` attribute adds validation plus autocomplete as fallback.

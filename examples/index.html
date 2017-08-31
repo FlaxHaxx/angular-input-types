@@ -27,6 +27,11 @@
         <span ng-if="number">modelValue={{number}}</span>
       </li>
       <li>
+        <label for="positive-number">Positive number</label>
+        <input type="tel" id="positive-number" ng-model="positiveNumber" input-number decimals="2" min="0"/>
+        <span ng-if="number">modelValue={{positiveNumber}}</span>
+      </li>
+      <li>
         <label for="time">Time</label>
         <input type="time" id="time" placeholder="HH:MM" ng-model="time" input-time/>
         <span ng-if="time">modelValue={{time}}</span>
