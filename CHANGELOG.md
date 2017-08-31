@@ -1,3 +1,10 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/FlaxHaxx/angular-input-types/compare/1.1.0...2.0.0) (2017-08-31)
+
+## Features
+* **Number input:** Input numbers allow negative values.
+* **Number input:** Input numbers can have a minimum allowed value by setting attribute "min".
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/FlaxHaxx/angular-input-types/compare/1.0.1...1.1.0) (2017-07-01)
 
