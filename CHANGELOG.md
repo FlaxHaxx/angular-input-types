@@ -1,3 +1,9 @@
+<a name="2.0.1"></a>
+# [2.0.1](https://github.com/FlaxHaxx/angular-input-types/compare/2.0.0...2.0.1) (2017-08-31)
+
+## Bug fixes
+* **Number input:** Input number without the "min" attribute didn't allow negative values.
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/FlaxHaxx/angular-input-types/compare/1.1.0...2.0.0) (2017-08-31)
 
