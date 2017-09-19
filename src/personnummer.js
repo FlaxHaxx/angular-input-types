@@ -1,6 +1,6 @@
 angular.module('inputTypes')
 
-.directive('inputPersonnummer', ['$browser', 'validate', function($browser, validate) {
+.directive('inputPersonnummer', ['$browser', '$sniffer', 'validate', function($browser, $sniffer, validate) {
     var centuryNow = String(new Date().getFullYear()).slice(0, 2);
     var yearNow = String(new Date().getFullYear()).slice(2, 4);
 
@@ -74,7 +74,11 @@ angular.module('inputTypes')
                 value = formatPaste(value);
                 if(value != elm.val()) {
                     elm.val(value);
-                    elm.triggerHandler('input');
+                    if($sniffer.hasEvent('input')) {
+                        elm.triggerHandler('input');
+                    } else { // IE 11 Fix
+                        elm.triggerHandler('change');
+                    }
                 }
             }
 

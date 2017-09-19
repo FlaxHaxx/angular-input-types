@@ -1,6 +1,6 @@
 angular.module('inputTypes')
 
-.directive('inputOrgnr', ['$browser', 'validate', function($browser, validate) {
+.directive('inputOrgnr', ['$browser', '$sniffer', 'validate', function($browser, $sniffer, validate) {
     function format(value) {
         var century = value.slice(0, 2);
         var containsCentury = century == 16 || century == 18 || century == 19 || century == 20;
@@ -60,7 +60,11 @@ angular.module('inputTypes')
                 value = formatPaste(value);
                 if(value != elm.val()) {
                     elm.val(value);
-                    elm.triggerHandler('input');
+                    if($sniffer.hasEvent('input')) {
+                        elm.triggerHandler('input');
+                    } else { // IE 11 Fix
+                        elm.triggerHandler('change');
+                    }
                 }
             }
 
