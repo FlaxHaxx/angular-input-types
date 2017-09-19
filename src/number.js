@@ -8,8 +8,8 @@ angular.module('inputTypes')
     }
 })
 
-.directive('inputNumber', ['$browser', '$filter', '$locale', '$parse', 'inputNumber', 'inputUtils', 'validate',
-        function($browser, $filter, $locale, $parse, inputNumber, inputUtils, validate) {
+.directive('inputNumber', ['$browser', '$filter', '$locale', '$parse', '$sniffer', 'inputNumber', 'inputUtils', 'validate',
+        function($browser, $filter, $locale, $parse, $sniffer, inputNumber, inputUtils, validate) {
     var thousandSeparator = $locale.NUMBER_FORMATS.GROUP_SEP;
     var decimalSeparator = $locale.NUMBER_FORMATS.DECIMAL_SEP;
     var nrOfDecimals = inputNumber.nrOfDecimals;
@@ -93,7 +93,11 @@ angular.module('inputTypes')
                 if(getNrOfDecimals(viewValue, decimalSeparator) > nrOfDecimals) {
                     // Possible to enter more than allowed decimals if this is not triggered
                     // TODO Fix cursor position, it now moves to the end
-                    elm.triggerHandler('input');
+                    if($sniffer.hasEvent('input')) {
+                        elm.triggerHandler('input');
+                    } else { // IE 11 Fix
+                        elm.triggerHandler('change');
+                    }
                 }
 
                 ctrl.$validators.min = function(modelValue, viewValue) {
