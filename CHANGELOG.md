@@ -1,3 +1,14 @@
+<a name="2.0.2"></a>
+# [2.0.2](https://github.com/FlaxHaxx/angular-input-types/compare/2.0.1...2.0.2) (2017-09-19)
+
+## Closed issues
+* **Paste OrgNr and SSN in IE11:** Always showing as invalid in IE11 when pasting a value. ([2](https://github.com/FlaxHaxx/angular-input-types/issues/2))
+
+## Bug fixes
+* **OrgNr input:** Was not validating when passing a value in IE11.
+* **SSN input:** Was not validating when passing a value in IE11.
+* **Number input:** It was possible to enter more than allowed decimals in IE11.
+
 <a name="2.0.1"></a>
 # [2.0.1](https://github.com/FlaxHaxx/angular-input-types/compare/2.0.0...2.0.1) (2017-08-31)
 
