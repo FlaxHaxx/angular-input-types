@@ -65,7 +65,11 @@ angular.module('inputTypes')
                 value = format(value);
                 if(value != elm.val()) {
                     elm.val(value);
-                    elm.triggerHandler('input');
+                    if($sniffer.hasEvent('input')) {
+                        elm.triggerHandler('input');
+                    } else { // IE 11 Fix
+                        elm.triggerHandler('change');
+                    }
                 }
             }
 
