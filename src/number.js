@@ -79,20 +79,18 @@ angular.module('inputTypes')
 
             ctrl.$parsers.unshift(function(viewValue) {
                 if(!viewValue) {
-                    return undefined;
+                    return null;
                 }
 
                 var modelValue = plainNumber(viewValue);
 
                 if(modelValue == null || getNrOfDecimals(modelValue, decimalSeparator) > nrOfDecimals) {
-                    return undefined;
+                    return null;
                 }
 
                 setViewValue(elm, modelValue, scope);
 
                 if(getNrOfDecimals(viewValue, decimalSeparator) > nrOfDecimals) {
-                    // Possible to enter more than allowed decimals if this is not triggered
-                    // TODO Fix cursor position, it now moves to the end
                     if($sniffer.hasEvent('input')) {
                         elm.triggerHandler('input');
                     } else { // IE 11 Fix
