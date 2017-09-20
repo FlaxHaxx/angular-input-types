@@ -15,7 +15,7 @@ angular.module('inputTypes')
     var nrOfDecimals = inputNumber.nrOfDecimals;
     var previousValueLength = 0;
 
-    function plainNumber(value) {
+    function plainNumber(value, decimals) {
         if(value == null) {
             return null;
         }
@@ -23,8 +23,8 @@ angular.module('inputTypes')
         var plainNumber = ('' + value).replace('.', decimalSeparator).replace(new RegExp('[^\\d\\-\\' + decimalSeparator + ']', 'g'), '');
 
         var regExp = '^\\-?\\d+';
-        if(nrOfDecimals > 0) {
-            regExp += '(\\' + decimalSeparator + '\\d{0,' + nrOfDecimals + '})?';
+        if(decimals > 0) {
+            regExp += '(\\' + decimalSeparator + '\\d{0,' + decimals + '})?';
         }
         plainNumber = plainNumber.match(new RegExp(regExp, 'g'));
 
@@ -71,8 +71,8 @@ angular.module('inputTypes')
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
             var attrDecimals = scope.$eval(attrs.decimals);
-            if(attrDecimals !== undefined) {
-                nrOfDecimals = attrDecimals;
+            if(attrDecimals === undefined) {
+                attrDecimals = nrOfDecimals;
             }
 
             var attrMin = scope.$eval(attrs.min);
@@ -86,15 +86,15 @@ angular.module('inputTypes')
                     return undefined;
                 }
 
-                var modelValue = plainNumber(viewValue);
+                var modelValue = plainNumber(viewValue, attrDecimals);
 
-                if(modelValue == null || getNrOfDecimals(modelValue, decimalSeparator) > nrOfDecimals) {
+                if(modelValue == null || getNrOfDecimals(modelValue, decimalSeparator) > attrDecimals) {
                     return undefined;
                 }
 
                 setViewValue(elm, modelValue, scope);
 
-                if(getNrOfDecimals(viewValue, decimalSeparator) > nrOfDecimals ||
+                if(getNrOfDecimals(viewValue, decimalSeparator) > attrDecimals ||
                         viewValue.lastIndexOf('-') <= 0 ||
                         viewValue.lastIndexOf('+') <= 0 ||
                         viewValue.lastIndexOf(' ') <= 0 ||
