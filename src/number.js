@@ -20,7 +20,7 @@ angular.module('inputTypes')
             return null;
         }
 
-        var plainNumber = ('' + value).replace('.', decimalSeparator).replace(new RegExp('[^\\d|\\-+|\\' + decimalSeparator + '+]', 'g'), '');
+        var plainNumber = ('' + value).replace('.', decimalSeparator).replace(new RegExp('[^\\d\\-\\' + decimalSeparator + ']', 'g'), '');
 
         var regExp = '^\\-?\\d+';
         if(nrOfDecimals > 0) {
@@ -94,7 +94,11 @@ angular.module('inputTypes')
 
                 setViewValue(elm, modelValue, scope);
 
-                if(getNrOfDecimals(viewValue, decimalSeparator) > nrOfDecimals) {
+                if(getNrOfDecimals(viewValue, decimalSeparator) > nrOfDecimals ||
+                        viewValue.lastIndexOf('-') <= 0 ||
+                        viewValue.lastIndexOf('+') <= 0 ||
+                        viewValue.lastIndexOf(' ') <= 0 ||
+                        viewValue.replace('.', ',').indexOf(',') != viewValue.replace('.', ',').lastIndexOf(',')) {
                     if($sniffer.hasEvent('input')) {
                         elm.triggerHandler('input');
                     } else { // IE 11 Fix
