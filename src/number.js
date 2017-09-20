@@ -78,14 +78,18 @@ angular.module('inputTypes')
             var attrMin = scope.$eval(attrs.min);
 
             ctrl.$parsers.unshift(function(viewValue) {
-                if(!viewValue) {
+                if(viewValue == '') {
                     return null;
+                }
+
+                if(!viewValue) {
+                    return undefined;
                 }
 
                 var modelValue = plainNumber(viewValue);
 
                 if(modelValue == null || getNrOfDecimals(modelValue, decimalSeparator) > nrOfDecimals) {
-                    return null;
+                    return undefined;
                 }
 
                 setViewValue(elm, modelValue, scope);
