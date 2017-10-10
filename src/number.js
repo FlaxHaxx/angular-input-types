@@ -41,17 +41,20 @@ angular.module('inputTypes')
                 plainNumberLength--;
             }
 
-            if(plainNumberLength > 1 && plainNumberLength % 3 == 1 && cursorPosition <= (plainNumberLength + Math.floor(plainNumberLength / 3))) {
-                // New thousand separator added
-                cursorPosition++;
+            if(inputElement[0] === document.activeElement) {
+                if(plainNumberLength > 1 && plainNumberLength % 3 == 1 && cursorPosition <= (plainNumberLength + Math.floor(plainNumberLength / 3))) {
+                    // New thousand separator added
+                    cursorPosition++;
+                }
+
+                if(cursorPosition > 1 && previousValueLength > plainNumberLength && previousValueLength % 3 > 0) {
+                    // Character deleted and one less decimal separator
+                    cursorPosition--;
+                }
+
+                scope.$evalAsync(inputUtils.setCursorPos(inputElement[0], cursorPosition));
             }
 
-            if(cursorPosition > 1 && previousValueLength > plainNumberLength && previousValueLength % 3 > 0) {
-                // Character deleted and one less decimal separator
-                cursorPosition--;
-            }
-
-            scope.$evalAsync(inputUtils.setCursorPos(inputElement[0], cursorPosition));
             previousValueLength = plainNumberLength;
         }
     }
