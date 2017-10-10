@@ -13,7 +13,6 @@ angular.module('inputTypes')
     var thousandSeparator = $locale.NUMBER_FORMATS.GROUP_SEP;
     var decimalSeparator = $locale.NUMBER_FORMATS.DECIMAL_SEP;
     var nrOfDecimals = inputNumber.nrOfDecimals;
-    var previousValueLength = 0;
 
     function plainNumber(value, decimals) {
         if(value == null) {
@@ -31,36 +30,39 @@ angular.module('inputTypes')
         return plainNumber === null ? null : plainNumber[0];
     }
 
-    function setViewValue(inputElement, plainNumberValue, scope) {
+    function setViewValue(inputElement, plainNumberValue, previousValueLength, scope) {
         if(previousValueLength == plainNumberValue.length) {
             return;
         }
 
         var cursorPosition = inputUtils.getCursorPos(inputElement[0]);
         inputElement.val(plainNumberValue === null ? '' : format(plainNumberValue));
-        if(plainNumberValue !== null) {
-            var plainNumberLength = plainNumberValue.toString().split(decimalSeparator)[0].length;
-            if(plainNumberLength > 0 && plainNumberValue.charAt(0) == '-') {
-                // Remove the minus sign when calculating length for the thousand separators
-                plainNumberLength--;
-            }
 
-            if(inputElement[0] === document.activeElement) {
-                if(plainNumberLength > 1 && plainNumberLength % 3 == 1 && cursorPosition <= (plainNumberLength + Math.floor(plainNumberLength / 3))) {
-                    // New thousand separator added
-                    cursorPosition++;
-                }
-
-                if(cursorPosition > 1 && previousValueLength > plainNumberLength && previousValueLength % 3 > 0) {
-                    // Character deleted and one less decimal separator
-                    cursorPosition--;
-                }
-
-                scope.$evalAsync(inputUtils.setCursorPos(inputElement[0], cursorPosition));
-            }
-
-            previousValueLength = plainNumberLength;
+        if(plainNumberValue === null) {
+            return 0;
         }
+
+        var plainNumberLength = plainNumberValue.toString().split(decimalSeparator)[0].length;
+        if(plainNumberLength > 0 && plainNumberValue.charAt(0) == '-') {
+            // Remove the minus sign when calculating length for the thousand separators
+            plainNumberLength--;
+        }
+
+        if(inputElement[0] === document.activeElement) {
+            if(plainNumberLength > 1 && plainNumberLength % 3 == 1 && cursorPosition <= (plainNumberLength + Math.floor(plainNumberLength / 3))) {
+                // New thousand separator added
+                cursorPosition++;
+            }
+
+            if(cursorPosition > 1 && previousValueLength > plainNumberLength && previousValueLength % 3 > 0) {
+                // Character deleted and one less decimal separator
+                cursorPosition--;
+            }
+
+            scope.$evalAsync(inputUtils.setCursorPos(inputElement[0], cursorPosition));
+        }
+
+        return plainNumberLength;
     }
 
     function format(value) {
@@ -73,11 +75,21 @@ angular.module('inputTypes')
         return value.indexOf(separator) == -1 ? 0 : value.split(separator)[1].length;
     }
 
+    function triggerInputEvent($sniffer, elm) {
+        if($sniffer.hasEvent('input')) {
+            elm.triggerHandler('input');
+        } else { // IE 11 Fix
+            elm.triggerHandler('change');
+        }
+    }
+
     return {
         restrict: 'A',
         require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
             var attrDecimals = scope.$eval(attrs.decimals);
+            var previousValueLength = 0;
+
             if(attrDecimals === undefined) {
                 attrDecimals = nrOfDecimals;
             }
@@ -99,18 +111,14 @@ angular.module('inputTypes')
                     return undefined;
                 }
 
-                setViewValue(elm, modelValue, scope);
+                previousValueLength = setViewValue(elm, modelValue, previousValueLength, scope);
 
                 if(getNrOfDecimals(viewValue, decimalSeparator) > attrDecimals ||
                         viewValue.lastIndexOf('-') <= 0 ||
                         viewValue.lastIndexOf('+') <= 0 ||
                         viewValue.lastIndexOf(' ') <= 0 ||
                         viewValue.replace('.', ',').indexOf(',') != viewValue.replace('.', ',').lastIndexOf(',')) {
-                    if($sniffer.hasEvent('input')) {
-                        elm.triggerHandler('input');
-                    } else { // IE 11 Fix
-                        elm.triggerHandler('change');
-                    }
+                    triggerInputEvent($sniffer, elm);
                 }
 
                 ctrl.$validators.min = function(modelValue, viewValue) {
@@ -123,7 +131,8 @@ angular.module('inputTypes')
             if (attrs.ngModel) {
                 var modelValue = $parse(attrs.ngModel)(scope);
                 if(modelValue) {
-                    setViewValue(elm, plainNumber(modelValue), scope);
+                    previousValueLength = setViewValue(elm, plainNumber(modelValue), previousValueLength, scope);
+                    triggerInputEvent($sniffer, elm);
                 }
             }
         }
