@@ -131,7 +131,7 @@ angular.module('inputTypes')
             if (attrs.ngModel) {
                 var modelValue = $parse(attrs.ngModel)(scope);
                 if(modelValue) {
-                    previousValueLength = setViewValue(elm, plainNumber(modelValue), previousValueLength, scope);
+                    previousValueLength = setViewValue(elm, plainNumber(modelValue, attrDecimals), previousValueLength, scope);
                     triggerInputEvent($sniffer, elm);
                 }
             }
