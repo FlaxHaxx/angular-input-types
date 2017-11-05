@@ -1,3 +1,9 @@
+<a name="2.0.3"></a>
+# [2.0.3](https://github.com/FlaxHaxx/angular-input-types/compare/2.0.2...2.0.3) (2017-11-05)
+
+## Bug fixes
+* **Number input:** Prefilled values formatted. Decimals attribute changed number of decimals for all *number inputs*. Validation fixed.
+
 <a name="2.0.2"></a>
 # [2.0.2](https://github.com/FlaxHaxx/angular-input-types/compare/2.0.1...2.0.2) (2017-09-19)
 
